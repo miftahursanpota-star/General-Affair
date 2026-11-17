@@ -1,6 +1,12 @@
 import { Hono } from 'hono';
+import { database } from './turso-d1.js';
 
 const app = new Hono();
+app.use('*', async (c, next) => {
+  c.env = { ...process.env, ...(c.env || {}), DB: database };
+  await next();
+});
+
 const getConfiguredPins = (env) => ({
   ga: typeof env.PIN_GA === 'string' ? env.PIN_GA.trim() : '',
   pimpinan: typeof env.PIN_PIMPINAN === 'string' ? env.PIN_PIMPINAN.trim() : '',

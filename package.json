@@ -2,18 +2,22 @@
   "name": "app-pengadaan",
   "version": "1.0.0",
   "description": "Sistem Pengajuan Barang & Request Bayar via Wablas API",
+  "type": "module",
   "main": "src/index.js",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "start": "node server.js"
+    "dev": "npx vercel dev",
+    "deploy": "npx vercel --prod",
+    "migrate:d1:turso": "node --env-file=.env scripts/import-d1-to-turso.mjs"
   },
   "dependencies": {
-    "axios": "^1.7.7",
-    "express": "^4.21.1",
+    "@tursodatabase/serverless": "^1.4.1",
     "hono": "^4.13.17"
   },
   "devDependencies": {
-    "wrangler": "^3.114.0"
+    "@libsql/client": "^0.18.0",
+    "wrangler": "^4.163.0"
   }
 }
