@@ -13,6 +13,8 @@ const getConfiguredPins = (env) => ({
   finance: typeof env.PIN_FINANCE === 'string' ? env.PIN_FINANCE.trim() : ''
 });
 
+app.get('/', (c) => c.redirect('/index.html'));
+
 // ==========================================
 // 1. ENDPOINT PENGAJUAN BARANG (MULTI-ITEM SUPPORT)
 // ==========================================
