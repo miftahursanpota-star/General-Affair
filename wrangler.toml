@@ -1,0 +1,14 @@
+name = "app-pengadaan"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+[assets]
+directory = "./public"
+
+[vars]
+WABLAS_API_URL = "https://pati.wablas.com/api/send-message"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "db_pengadaan"
+database_id = "d1db5317-2bda-4bb3-ae0a-be352fa85fd4"

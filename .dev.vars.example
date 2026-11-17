@@ -1,0 +1,8 @@
+WABLAS_TOKEN=replace-with-wablas-token
+TARGET_PHONE=replace-with-notification-phone
+PIN_GA=replace-with-ga-pin
+PIN_PIMPINAN=replace-with-manager-pin
+PIN_FINANCE=replace-with-finance-pin
+SHEET_SECRET_TOKEN=replace-with-random-secret
+GOOGLE_SHEET_URL=https://docs.google.com/spreadsheets/d/REPLACE_WITH_SHEET_ID/edit
+GOOGLE_SHEET_WEBHOOK_URL=https://script.google.com/macros/s/REPLACE_WITH_WEBHOOK_ID/exec
