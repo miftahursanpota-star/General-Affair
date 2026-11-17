@@ -4,20 +4,14 @@
   "description": "Sistem Pengajuan Barang & Request Bayar via Wablas API",
   "type": "module",
   "main": "src/index.js",
-  "engines": {
-    "node": "24.x"
-  },
   "scripts": {
-    "dev": "npx vercel dev",
-    "deploy": "npx vercel --prod",
-    "migrate:d1:turso": "node --env-file=.env scripts/import-d1-to-turso.mjs"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@tursodatabase/serverless": "^1.4.1",
     "hono": "^4.13.17"
   },
   "devDependencies": {
-    "@libsql/client": "^0.18.0",
     "wrangler": "^4.163.0"
   }
 }

@@ -1,5 +1,3 @@
-TURSO_DATABASE_URL=libsql://your-database-your-organization.turso.io
-TURSO_AUTH_TOKEN=replace-with-turso-token
 WABLAS_TOKEN=replace-with-wablas-token
 TARGET_PHONE=replace-with-notification-phone
 PIN_GA=replace-with-ga-pin
