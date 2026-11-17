@@ -729,7 +729,7 @@
             <button type="button" onclick="exportFinanceCsv()" style="background:#0284c7; color:white; padding:9px 15px; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">
               📥 Download Excel (CSV)
             </button>
-            <a id="linkGoogleSheetFinance" href="#" class="hidden" target="_blank" style="background:#16a34a; color:white; padding:9px 15px; border-radius:6px; font-weight:bold; text-decoration:none; display:inline-block;">
+            <a id="linkGoogleSheetFinance" href="https://docs.google.com/spreadsheets/d/1yQUB_tEak1v9hX4vc9WsxxdSGfck585GkLt7-flwel8/edit?usp=sharing" target="_blank" style="background:#16a34a; color:white; padding:9px 15px; border-radius:6px; font-weight:bold; text-decoration:none; display:inline-block;">
               🔗 Buka Google Sheet ↗
             </a>
           </div>
@@ -2251,8 +2251,9 @@
   }
 
   function sendDirectWhatsApp() {
+    const phone = "6283866529776";
     const text = encodeURIComponent(generateWAMessageText());
-    window.open(`https://wa.me/?text=${text}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
   }
 
   function sendWablasAPI() {
@@ -2262,7 +2263,7 @@
     fetch('/api/send-wablas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: msg })
+      body: JSON.stringify({ phone: '083866529776', message: msg })
     })
     .then(res => res.json())
     .then(data => {

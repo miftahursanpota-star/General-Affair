@@ -774,10 +774,10 @@ app.post('/api/inventory/delete', async (c) => {
 app.post('/api/send-wablas', async (c) => {
   try {
     const body = await c.req.json();
-    const { message } = body;
+    const { phone, message } = body;
     const WABLAS_TOKEN = c.env.WABLAS_TOKEN;
     const WABLAS_API_URL = c.env.WABLAS_API_URL || 'https://pati.wablas.com/api/send-message';
-    const targetPhone = c.env.TARGET_PHONE;
+    const targetPhone = phone || c.env.TARGET_PHONE;
 
     if (!WABLAS_TOKEN || !targetPhone) {
       return c.json({ status: 'error', message: 'Secret WABLAS_TOKEN dan TARGET_PHONE harus disetting di Cloudflare.' }, 500);
