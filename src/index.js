@@ -383,6 +383,7 @@ app.post('/api/request-bayar', async (c) => {
     // 2. Kirim ke Webhook Google Sheets Realtime (jika URL dikonfigurasi)
     const GOOGLE_SHEET_WEBHOOK_URL = c.env.GOOGLE_SHEET_WEBHOOK_URL;
     let sheetSent = false;
+    let sheetSyncMessage = 'Webhook Google Sheets belum dikonfigurasi di Cloudflare.';
     if (GOOGLE_SHEET_WEBHOOK_URL && GOOGLE_SHEET_WEBHOOK_URL.trim() !== '' && c.env.SHEET_SECRET_TOKEN) {
       try {
         const sheetPayload = {
@@ -390,16 +391,23 @@ app.post('/api/request-bayar', async (c) => {
           secretToken: c.env.SHEET_SECRET_TOKEN,
           dokumenPendukung: notaUrl
         };
-        await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+        const sheetResponse = await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(sheetPayload),
           redirect: 'follow'
         });
+        const sheetResult = await sheetResponse.json().catch(() => ({}));
+        if (!sheetResponse.ok || sheetResult.status !== 'success') {
+          throw new Error('Google Sheets menolak request webhook.');
+        }
         sheetSent = true;
       } catch (sheetErr) {
         console.warn('Google Sheets Webhook error:', sheetErr.message);
+        sheetSyncMessage = 'Gagal menyinkronkan data ke Google Sheets. Periksa deployment Apps Script dan konfigurasi webhook Cloudflare.';
       }
+    } else if (GOOGLE_SHEET_WEBHOOK_URL && GOOGLE_SHEET_WEBHOOK_URL.trim() !== '') {
+      sheetSyncMessage = 'Secret SHEET_SECRET_TOKEN belum dikonfigurasi di Cloudflare.';
     }
 
     // 3. Kirim Notifikasi WhatsApp ke Finance via Wablas
@@ -428,7 +436,8 @@ app.post('/api/request-bayar', async (c) => {
       status: 'success',
       message: sheetSent 
         ? 'Request bayar berhasil tersimpan di Database & Google Sheets Finance!' 
-        : 'Request bayar & foto nota berhasil tersimpan di sistem!',
+        : `Request bayar tersimpan di sistem, tetapi belum masuk Google Sheets. ${sheetSyncMessage}`,
+      sheetSent,
       notaUrl: notaUrl
     });
 
